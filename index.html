@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia Imperador | Tradição & Estilo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gold:#C9A84C;
+  --gold-light:#E8C97A;
+  --gold-dark:#9B7A2E;
+  --black:#0A0A0A;
+  --charcoal:#1A1A1A;
+  --dark:#2D2D2D;
+  --mid:#4A4A4A;
+  --ivory:#F5F0E8;
+  --ivory-dark:#EDE7D9;
+  --white:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--ivory);font-family:'Inter',sans-serif;overflow-x:hidden}
+
+/* NAVBAR */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.15);transition:all .3s}
+nav.scrolled{background:rgba(10,10,10,0.98);box-shadow:0 4px 30px rgba(0,0,0,.5)}
+.nav-logo{font-family:'Cinzel',serif;font-size:1.4rem;font-weight:600;color:var(--gold);letter-spacing:.15em;text-decoration:none;display:flex;align-items:center;gap:.8rem}
+.nav-logo svg{width:32px;height:32px}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{color:rgba(245,240,232,.7);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--gold);color:var(--black)!important;padding:.6rem 1.4rem;border-radius:2px;font-weight:600!important;letter-spacing:.1em}
+.nav-cta::after{display:none!important}
+.nav-cta:hover{background:var(--gold-light)!important;color:var(--black)!important}
+.nav-burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px}
+.nav-burger span{width:24px;height:1.5px;background:var(--ivory);display:block;transition:all .3s}
+
+/* HERO */
+.hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A0A0A 0%,#1a0e00 50%,#0A0A0A 100%)}
+.hero-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(45deg,var(--gold) 0,var(--gold) 1px,transparent 0,transparent 50%);background-size:30px 30px}
+.hero-overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,.08) 0%,rgba(10,10,10,.95) 70%)}
+.hero-razor{position:absolute;width:100%;height:100%;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:800px;padding:0 2rem}
+.hero-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:.7rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;padding:.4rem 1.2rem;margin-bottom:2rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6rem);font-weight:700;line-height:1.05;margin-bottom:1.5rem;color:var(--white)}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero-tagline{font-size:1rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.6);margin-bottom:2rem;line-height:2}
+.hero-tagline::before,.hero-tagline::after{content:'—';margin:0 .8rem;color:var(--gold-dark)}
+.hero-divider{width:60px;height:1px;background:var(--gold);margin:2rem auto;position:relative}
+.hero-divider::before,.hero-divider::after{content:'◆';position:absolute;color:var(--gold);font-size:.5rem;top:50%;transform:translateY(-50%)}
+.hero-divider::before{left:-1rem}
+.hero-divider::after{right:-1rem}
+.hero-desc{font-size:1.05rem;color:rgba(245,240,232,.75);line-height:1.9;max-width:560px;margin:0 auto 3rem}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--black);padding:1rem 2.5rem;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border:2px solid var(--gold);transition:all .3s;clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%)}
+.btn-primary:hover{background:transparent;color:var(--gold)}
+.btn-secondary{background:transparent;color:var(--ivory);padding:1rem 2.5rem;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(245,240,232,.3);transition:all .3s}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(245,240,232,.4);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase}
+.hero-scroll::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollAnim 2s ease infinite}
+@keyframes scrollAnim{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* SECTION BASE */
+section{padding:7rem 4rem}
+.section-eyebrow{font-family:'Cinzel',serif;font-size:.7rem;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:1rem}
+.section-eyebrow::before{content:'';width:30px;height:1px;background:var(--gold)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:var(--white);line-height:1.2;margin-bottom:1.5rem}
+.section-desc{font-size:1rem;color:rgba(245,240,232,.65);line-height:1.9;max-width:560px}
+
+/* SOBRE */
+.sobre{background:var(--charcoal);position:relative;overflow:hidden}
+.sobre::before{content:'';position:absolute;right:-200px;top:-200px;width:600px;height:600px;border-radius:50%;border:1px solid rgba(201,168,76,.06)}
+.sobre::after{content:'';position:absolute;right:-150px;top:-150px;width:400px;height:400px;border-radius:50%;border:1px solid rgba(201,168,76,.04)}
+.sobre-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;max-width:1200px;margin:0 auto}
+.sobre-visual{position:relative}
+.sobre-img-frame{aspect-ratio:4/5;background:var(--dark);position:relative;overflow:hidden}
+.sobre-img-frame::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-dark),#8B4513);opacity:.15}
+.sobre-img-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:8rem;opacity:.08}
+.sobre-img-badge{position:absolute;bottom:-1.5rem;right:-1.5rem;width:120px;height:120px;background:var(--gold);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--black)}
+.sobre-img-badge strong{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;line-height:1}
+.sobre-img-badge span{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.sobre-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.stat-item{border-left:2px solid var(--gold);padding-left:1rem}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--gold);font-weight:700;line-height:1}
+.stat-label{font-size:.75rem;color:rgba(245,240,232,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem}
+
+/* SERVIÇOS */
+.servicos{background:var(--black);position:relative}
+.servicos-header{text-align:center;max-width:600px;margin:0 auto 5rem;display:flex;flex-direction:column;align-items:center}
+.servicos-header .section-eyebrow{justify-content:center}
+.servicos-header .section-eyebrow::before{display:none}
+.servicos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;max-width:1200px;margin:0 auto;background:rgba(201,168,76,.15)}
+.servico-card{background:var(--black);padding:2.5rem;transition:all .4s;position:relative;overflow:hidden;cursor:pointer}
+.servico-card::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.servico-card:hover{background:var(--charcoal)}
+.servico-card:hover::before{transform:scaleX(1)}
+.servico-icon{width:48px;height:48px;border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;transition:all .4s;font-size:1.4rem}
+.servico-card:hover .servico-icon{border-color:var(--gold);background:rgba(201,168,76,.08)}
+.servico-nome{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);margin-bottom:.5rem}
+.servico-desc{font-size:.85rem;color:rgba(245,240,232,.5);line-height:1.8;margin-bottom:1.5rem}
+.servico-footer{display:flex;justify-content:space-between;align-items:center}
+.servico-preco{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);font-weight:700}
+.servico-tempo{font-size:.7rem;color:rgba(245,240,232,.4);letter-spacing:.1em;text-transform:uppercase}
+
+/* GALERIA */
+.galeria{background:var(--charcoal)}
+.galeria-header{display:flex;justify-content:space-between;align-items:flex-end;max-width:1200px;margin:0 auto 3rem}
+.galeria-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(2,200px);gap:4px;max-width:1200px;margin:0 auto}
+.galeria-item{background:var(--dark);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.galeria-item::after{content:'';position:absolute;inset:0;background:rgba(201,168,76,0);transition:background .4s}
+.galeria-item:hover::after{background:rgba(201,168,76,.1)}
+.galeria-item .placeholder{font-size:3rem;opacity:.1;position:relative;z-index:1}
+.g1{grid-column:span 5;grid-row:span 2}
+.g2{grid-column:span 4}
+.g3{grid-column:span 3}
+.g4{grid-column:span 7}
+.g5{display:none}
+
+/* EQUIPE */
+.equipe{background:var(--black)}
+.equipe-header{text-align:center;max-width:600px;margin:0 auto 5rem;display:flex;flex-direction:column;align-items:center}
+.equipe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;max-width:1200px;margin:0 auto}
+.barbeiro-card{text-align:center;group:true}
+.barbeiro-foto{width:180px;height:180px;border-radius:50%;background:var(--dark);margin:0 auto 1.5rem;position:relative;display:flex;align-items:center;justify-content:center;font-size:3rem;overflow:hidden;border:2px solid rgba(201,168,76,.2);transition:border-color .3s}
+.barbeiro-card:hover .barbeiro-foto{border-color:var(--gold)}
+.barbeiro-foto-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--dark),var(--charcoal))}
+.barbeiro-nome{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--white);margin-bottom:.3rem}
+.barbeiro-esp{font-size:.75rem;color:var(--gold);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem}
+.barbeiro-rating{display:flex;align-items:center;justify-content:center;gap:.3rem;color:var(--gold);font-size:.8rem}
+.stars{letter-spacing:2px}
+
+/* LOCALIZAÇÃO */
+.localizacao{background:var(--charcoal)}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;max-width:1200px;margin:0 auto;align-items:start}
+.mapa-frame{background:var(--dark);aspect-ratio:4/3;position:relative;overflow:hidden;border:1px solid rgba(201,168,76,.1)}
+.mapa-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;color:rgba(245,240,232,.3)}
+.mapa-placeholder svg{width:48px;height:48px;stroke:var(--gold);fill:none;stroke-width:1.5;opacity:.5}
+.contact-items{display:flex;flex-direction:column;gap:2rem;margin-top:2rem}
+.contact-item{display:flex;gap:1rem;align-items:flex-start}
+.contact-icon{width:44px;height:44px;border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:1.1rem}
+.contact-text strong{display:block;font-size:.7rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.3rem}
+.contact-text span,.contact-text a{color:rgba(245,240,232,.7);font-size:.9rem;text-decoration:none;line-height:1.8}
+.horarios{margin-top:2.5rem}
+.horario-row{display:flex;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(245,240,232,.06);font-size:.85rem}
+.horario-row:last-child{border-bottom:none}
+.horario-dia{color:rgba(245,240,232,.5)}
+.horario-hora{color:var(--ivory);font-weight:500}
+.horario-row.hoje .horario-dia{color:var(--gold)}
+.horario-row.hoje .horario-hora{color:var(--gold)}
+.social-links{display:flex;gap:1rem;margin-top:2rem}
+.social-link{width:40px;height:40px;border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;color:rgba(245,240,232,.6);text-decoration:none;font-size:.85rem;transition:all .3s;font-weight:600}
+.social-link:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.05)}
+
+/* CTA PRINCIPAL */
+.cta-section{background:var(--black);text-align:center;padding:8rem 4rem;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(201,168,76,.06) 0%,transparent 70%)}
+.cta-ornament{width:80px;margin:0 auto 2rem;display:flex;align-items:center;gap:.5rem}
+.cta-ornament::before,.cta-ornament::after{content:'';flex:1;height:1px;background:var(--gold-dark)}
+.cta-ornament span{color:var(--gold);font-size:.6rem}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--white);margin-bottom:1.5rem;line-height:1.2}
+.cta-section p{font-size:1rem;color:rgba(245,240,232,.6);margin-bottom:3rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.9}
+.cta-btn{display:inline-flex;align-items:center;gap:1rem;background:var(--gold);color:var(--black);padding:1.2rem 3rem;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:all .3s;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);font-size:1rem}
+.cta-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
+.cta-btn svg{width:20px;height:20px}
+
+/* FOOTER */
+footer{background:#050505;border-top:1px solid rgba(201,168,76,.1);padding:4rem;text-align:center}
+.footer-logo{font-family:'Cinzel',serif;font-size:2rem;color:var(--gold);margin-bottom:1rem;letter-spacing:.2em}
+.footer-tagline{font-size:.75rem;color:rgba(245,240,232,.3);letter-spacing:.2em;text-transform:uppercase;margin-bottom:2rem}
+.footer-divider{width:60px;height:1px;background:rgba(201,168,76,.3);margin:0 auto 2rem}
+.footer-copy{font-size:.75rem;color:rgba(245,240,232,.25);letter-spacing:.05em}
+
+/* RAZOR DIVIDER */
+.razor-divider{height:60px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.razor-divider::before{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.3),transparent)}
+.razor-svg{width:80px;background:inherit;padding:0 1rem;position:relative;z-index:1}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  nav{padding:1.2rem 2rem}
+  section{padding:5rem 2rem}
+  .sobre-grid,.loc-grid{grid-template-columns:1fr;gap:3rem}
+  .galeria-grid{grid-template-columns:repeat(2,1fr);grid-template-rows:auto;gap:4px}
+  .galeria-item{grid-column:auto!important;grid-row:auto!important;aspect-ratio:4/3}
+}
+@media(max-width:768px){
+  .nav-links{display:none;position:fixed;inset:0;top:70px;background:rgba(10,10,10,.98);flex-direction:column;align-items:center;justify-content:center;gap:2rem;z-index:999}
+  .nav-links.open{display:flex}
+  .nav-burger{display:flex}
+  .hero h1{font-size:2.8rem}
+  .galeria-grid{grid-template-columns:1fr}
+  .servicos-grid{grid-template-columns:1fr}
+  .loc-grid{grid-template-columns:1fr}
+}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .8s ease,transform .8s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* GOOGLE MAPS */
+.mapa-real{width:100%;height:100%;border:none;filter:grayscale(100%) contrast(1.1) brightness(0.7) sepia(30%)}
+
+/* Ajuste para a imagem da seção Sobre (aquela abaixo do hero) */
+.sobre-img-inner {
+  opacity: 0.6; /* Aumentamos a opacidade de 0.08 para 0.6 para a imagem aparecer bem */
+}
+
+.sobre-img-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem preencha o espaço sem amassar ou distorcer */
+}
+
+/* Ajuste para as imagens/ícones da seção de Serviços */
+.servico-icon img {
+  width: 26px; /* Tamanho seguro para caber dentro da borda de 48px */
+  height: 26px;
+  object-fit: contain; /* Mantém a proporção do ícone */
+  /* Dica: Se quiser que a imagem fique com a cor dourada do site, 
+     o ideal é usar ícones em formato .png ou .svg já na cor #C9A84C */
+}
+
+/* Ajustes para as imagens da Galeria */
+.galeria-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem preencha todo o bloco sem distorcer */
+  transition: transform 0.5s ease; /* Prepara a imagem para a animação */
+}
+
+/* Efeito de zoom suave ao passar o mouse por cima do quadro da galeria */
+.galeria-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Ajustes para as fotos da equipe de barbeiros */
+.barbeiro-foto-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Garante que a imagem não saia da borda do card */
+}
+
+.barbeiro-foto-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Corta e ajusta a foto perfeitamente sem amassar o rosto */
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 6C8 6 10 8 16 8C22 8 24 6 24 6" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M10 8L8 24" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M22 8L24 24" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M8 24C8 24 10 26 16 26C22 26 24 24 24 24" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="16" cy="16" r="4" stroke="#C9A84C" stroke-width="1"/>
+      <path d="M16 12V20M12 16H20" stroke="#C9A84C" stroke-width="0.8" stroke-linecap="round"/>
+    </svg>
+    Imperador
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+    <li><a href="#contato">Contato</a></li>
+    <li><a href="agendamento.html" class="nav-cta">Agendar Agora</a></li>
+  </ul>
+  <button class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Est. 1998 · Campo Grande, MS</div>
+    <h1>Arte & <em>Precisão</em><br>Na Sua Aparência</h1>
+    <p class="hero-tagline">Tradição</p>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Onde cada corte é uma obra de arte. Sua aparência merece o melhor — profissionais especializados, ambiente sofisticado e atendimento exclusivo.</p>
+    <div class="hero-btns">
+      <a href="agendamento.html" class="btn-primary">✦ Agendar Horário</a>
+      <a href="#servicos" class="btn-secondary">Ver Serviços</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section class="sobre" id="sobre">
+  <div class="sobre-grid">
+    <div class="reveal-left">
+      <div class="sobre-visual">
+        <div class="sobre-img-frame">
+          <div class="sobre-img-inner">
+            <img src="img1.jpg" alt="Sobre a Barbearia">
+          </div>
+        </div>
+        <div class="sobre-img-badge">
+          <strong>25+</strong>
+          <span>Anos</span>
+        </div>
+      </div>
+      <div class="sobre-stats">
+        <div class="stat-item">
+          <div class="stat-num">8.500+</div>
+          <div class="stat-label">Clientes Satisfeitos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Barbeiros Experts</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">#1</div>
+          <div class="stat-label">Em Campo Grande</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4.9★</div>
+          <div class="stat-label">Nota no Google</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-right">
+      <div class="section-eyebrow">Nossa História</div>
+      <h2 class="section-title">Mais de 25 anos moldando estilos</h2>
+      <p class="section-desc" style="margin-bottom:1.5rem">A Barbearia Imperador nasceu em 1998 com uma missão clara: oferecer o melhor em cuidados masculinos com a excelência que os homens de Campo Grande merecem.</p>
+      <p class="section-desc" style="margin-bottom:2rem">De pai para filho, passamos nossa tradição de geração em geração, unindo técnicas clássicas de barbearia com as tendências mais modernas do mundo da moda masculina.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem">
+        <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">✦ Produtos Premium</div>
+        <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">✦ Barbeiros Certificados</div>
+        <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">✦ Ambiente Exclusivo</div>
+        <div style="background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);padding:.5rem 1.2rem;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">✦ Atendimento VIP</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAZOR DIVIDER -->
+<div class="razor-divider" style="background:var(--black)">
+  <svg class="razor-svg" viewBox="0 0 80 20" fill="none">
+    <path d="M5 10H30M50 10H75M35 5L40 10L35 15M45 5L40 10L45 15" stroke="#C9A84C" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="40" cy="10" r="3" stroke="#C9A84C" stroke-width="0.8"/>
+  </svg>
+</div>
+
+<!-- SERVIÇOS -->
+<section class="servicos" id="servicos">
+  <div class="servicos-header reveal">
+    <div class="section-eyebrow">O Que Fazemos</div>
+    <h2 class="section-title" style="text-align:center">Nossos Serviços</h2>
+    <p class="section-desc" style="text-align:center">Do clássico ao contemporâneo, cada serviço é executado com maestria e atenção aos detalhes.</p>
+  </div>
+  <div class="servicos-grid">
+    <div class="servico-card reveal">
+      <div class="servico-icon">✂</div>
+      <div class="servico-nome">Corte Masculino</div>
+      <div class="servico-desc">Corte clássico ou moderno com finalização caprichada e consultoria de estilo personalizada.</div>
+      <div class="servico-footer">
+        <div class="servico-preco">R$ 55</div>
+        <div class="servico-tempo">⏱ 45 min</div>
+      </div>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-icon">🪒</div>
+      <div class="servico-nome">Barba Completa</div>
+      <div class="servico-desc">Modelagem, hidratação e acabamento perfeito. Inclui toalha quente e produtos premium.</div>
+      <div class="servico-footer">
+        <div class="servico-preco">R$ 45</div>
+        <div class="servico-tempo">⏱ 40 min</div>
+      </div>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-icon">👑</div>
+      <div class="servico-nome">Corte + Barba</div>
+      <div class="servico-desc">O combo completo. Transformação total com corte premium e barba impecável. Nosso mais pedido!</div>
+      <div class="servico-footer">
+        <div class="servico-preco">R$ 90</div>
+        <div class="servico-tempo">⏱ 80 min</div>
+      </div>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-icon">⚡</div>
+      <div class="servico-nome">Acabamento</div>
+      <div class="servico-desc">Limpeza de pescoço, contorno e finalização. Ideal para manter o visual entre cortes.</div>
+      <div class="servico-footer">
+        <div class="servico-preco">R$ 30</div>
+        <div class="servico-tempo">⏱ 20 min</div>
+      </div>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-icon">💧</div>
+      <div class="servico-nome">Hidratação Capilar</div>
+      <div class="servico-desc">Tratamento profundo com produtos importados para cabelos ressecados ou danificados.</div>
+      <div class="servico-footer">
+        <div class="servico-preco">R$ 60</div>
+        <div class="servico-tempo">⏱ 50 min</div>
+      </div>
+    </div>
+    <div class="servico-card reveal">
+      <div class="servico-icon">✨</div>
+      <div class="servico-nome">Pigmentação</div>
+      <div class="servico-desc">Cobrimento de fios brancos com técnica especializada. Resultado natural e duradouro.</div>
+      <div class="servico-footer">
+        <div class="servico-preco">R$ 80</div>
+        <div class="servico-tempo">⏱ 60 min</div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:3rem" class="reveal">
+    <a href="agendamento.html" class="btn-primary">Agendar Agora</a>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section class="galeria" id="galeria">
+  <div class="galeria-header reveal">
+    <div>
+      <div class="section-eyebrow">Nossa Galeria</div>
+      <h2 class="section-title">O Ambiente & Os Resultados</h2>
+    </div>
+    <p style="color:rgba(245,240,232,.4);font-size:.8rem;max-width:200px;text-align:right;line-height:1.8">Veja onde a tradição encontra o estilo contemporâneo</p>
+  </div>
+  <div class="galeria-grid reveal">
+    
+    <div class="galeria-item g1">
+      <img src="img6.jpg" alt="Ambiente da Barbearia Imperador">
+    </div>
+
+    <div class="galeria-item g2">
+      <img src="img3.jpg" alt="Cliente após corte de cabelo">
+    </div>
+
+    <div class="galeria-item g3">
+      <img src="img4.jpg" alt="Detalhe dos equipamentos de barbearia">
+    </div>
+
+    <div class="galeria-item g4">
+      <img src="img5.jpg" alt="Barbeiro realizando o serviço">
+    </div>
+
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section class="equipe" id="equipe">
+  <div class="equipe-header reveal">
+    <div class="section-eyebrow" style="justify-content:center"><span style="width:30px;height:1px;background:var(--gold);display:inline-block"></span></div>
+    <div class="section-eyebrow" style="justify-content:center">Nossa Equipe</div>
+    <h2 class="section-title" style="text-align:center">Os Mestres do Estilo</h2>
+    <p class="section-desc" style="text-align:center">Profissionais apaixonados pelo que fazem, sempre atualizados com as últimas tendências.</p>
+  </div>
+  <div class="equipe-grid">
+    
+    <div class="barbeiro-card reveal">
+      <div class="barbeiro-foto">
+        <div class="barbeiro-foto-inner">
+          <img src="barbeiro1.jpg" alt="Rafael Mendonça">
+        </div>
+      </div>
+      <div class="barbeiro-nome">Rafael Mendonça</div>
+      <div class="barbeiro-esp">Fundador</div>
+      <div class="barbeiro-rating"><span class="stars">★★★★★</span> <span style="color:rgba(245,240,232,.4);font-size:.75rem">15 anos exp.</span></div>
+    </div>
+
+    <div class="barbeiro-card reveal">
+      <div class="barbeiro-foto">
+        <div class="barbeiro-foto-inner">
+          <img src="barbeiro2.jpg" alt="Diego Souza">
+        </div>
+      </div>
+      <div class="barbeiro-nome">Diego Souza</div>
+      <div class="barbeiro-esp">Especialista em Barba</div>
+      <div class="barbeiro-rating"><span class="stars">★★★★★</span> <span style="color:rgba(245,240,232,.4);font-size:.75rem">12 anos exp.</span></div>
+    </div>
+
+    <div class="barbeiro-card reveal">
+      <div class="barbeiro-foto">
+        <div class="barbeiro-foto-inner">
+          <img src="barbeiro3.jpg" alt="Lucas Alves">
+        </div>
+      </div>
+      <div class="barbeiro-nome">Lucas Alves</div>
+      <div class="barbeiro-esp">Cortes Modernos & Degradê</div>
+      <div class="barbeiro-rating"><span class="stars">★★★★★</span> <span style="color:rgba(245,240,232,.4);font-size:.75rem">8 anos exp.</span></div>
+    </div>
+
+    <div class="barbeiro-card reveal">
+      <div class="barbeiro-foto">
+        <div class="barbeiro-foto-inner">
+          <img src="barbeiro4.jpg" alt="Carlos Ferreira">
+        </div>
+      </div>
+      <div class="barbeiro-nome">Carlos Ferreira</div>
+      <div class="barbeiro-esp">Coloração & Tratamento</div>
+      <div class="barbeiro-rating"><span class="stars">★★★★★</span> <span style="color:rgba(245,240,232,.4);font-size:.75rem">6 anos exp.</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA GRANDE -->
+<section class="cta-section" id="agendar">
+  <div class="cta-ornament"><span>◆</span></div>
+  <h2 class="reveal">Pronto para uma <em style="color:var(--gold);font-style:italic">Transformação?</em></h2>
+  <p class="reveal">Agende seu horário agora mesmo. Rápido, fácil e sem espera. Você escolhe o barbeiro, o serviço e o horário que preferir.</p>
+  <a href="agendamento.html" class="cta-btn reveal">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Agendar Meu Horário Agora
+  </a>
+</section>
+
+<!-- CONTATO / LOCALIZAÇÃO -->
+<section class="localizacao" id="contato">
+  <div class="loc-grid">
+    <div class="reveal-left">
+      <div class="section-eyebrow">Nos Encontre</div>
+      <h2 class="section-title">Localização & Contato</h2>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div class="contact-text">
+            <strong>Endereço</strong>
+            <span>Av. Afonso Pena, 1.234 — Centro<br>Campo Grande, MS — CEP 79002-001</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-text">
+            <strong>WhatsApp & Telefone</strong>
+            <a href="https://wa.me/5567999990000">(67) 99999-0000</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div class="contact-text">
+            <strong>E-mail</strong>
+            <a href="mailto:contato@barbeariaimperador.com.br">contato@barbeariaimperador.com.br</a>
+          </div>
+        </div>
+      </div>
+      <div class="horarios">
+        <p style="font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:600">Horários de Funcionamento</p>
+        <div class="horario-row"><span class="horario-dia">Segunda — Sexta</span><span class="horario-hora">08:00 — 20:00</span></div>
+        <div class="horario-row hoje"><span class="horario-dia">Sábado ← Hoje</span><span class="horario-hora">08:00 — 18:00</span></div>
+        <div class="horario-row"><span class="horario-dia">Domingo</span><span class="horario-hora">Fechado</span></div>
+      </div>
+      <div class="social-links">
+  <a href="#" class="social-link" title="Instagram">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  </a>
+
+  <a href="#" class="social-link" title="Facebook">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+    </svg>
+  </a>
+
+  <a href="#" class="social-link" title="TikTok">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+    </svg>
+  </a>
+
+  <a href="https://wa.me/5567999990000" class="social-link" title="WhatsApp">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+    </svg>
+  </a>
+</div>
+    </div>
+    <div class="reveal-right">
+      <div class="mapa-frame">
+        <iframe
+          class="mapa-real"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3737.5!2d-54.6451!3d-20.4697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9486e8a4ef3ed5c7%3A0x6bae1c24cdbc7a24!2sAv.%20Afonso%20Pena%2C%20Campo%20Grande%20-%20MS!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div style="margin-top:2rem;text-align:center">
+        <a href="agendamento.html" class="btn-primary" style="display:inline-block">✦ Agendar Online Agora</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">IMPERADOR</div>
+  <div class="footer-tagline">Arte & Precisão desde 1998</div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">© 2024 Barbearia Imperador. Todos os direitos reservados. · Campo Grande, MS</div>
+</footer>
+
+<script>
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Mobile menu
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('navLinks');
+burger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// Highlight today
+const days = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('.horario-dia').forEach(el => {
+  if (el.textContent.includes(today)) {
+    el.closest('.horario-row').classList.add('hoje');
+  }
+});
+</script>
+</body>
+</html>
